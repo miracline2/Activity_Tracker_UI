@@ -1,1 +1,59 @@
 @import "tailwindcss";
+
+html, body {
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #faf5ff 100%);
+  background-attachment: fixed;
+  color: #374151;
+  overflow-x: hidden;
+  font-family: "Comic Relief", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+}
+
+/* For customized scroll */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right,
+  rgba(192, 132, 252, 0.2),  /* from-purple-400/20 */
+  rgba(244, 114, 182, 0.2),  /* via-pink-400/20 */
+  rgba(96, 165, 250, 0.2)    /* to-blue-400/20 */
+);
+
+
+  border-radius: 5px;
+}
+
+.select-dropdown::-webkit-scrollbar-thumb {
+  background: #ced1db;
+  border-radius: 5px;
+}
+
+.select-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lite-scrollbar::-webkit-scrollbar-thumb {
+  background: #e7e7f1;
+  border-radius: 3px;
+}
+
+.lite-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
