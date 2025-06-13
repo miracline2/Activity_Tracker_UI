@@ -1,13 +1,19 @@
 import { motion } from "framer-motion";
 import { HomeAbout } from "../common";
 import ActivityCard from "../components/Dashboard/ActivityCard";
+import { useState } from "react";
+import ActivityPopup from "../components/Dashboard/ActivityPopup";
 
 const Home = () => {
+  const [isDialogOpen, setDialogOpen] = useState<boolean>(false)
+
+  const createActivity = () => {
+    setDialogOpen(true)
+  }
   return (
     <div className="w-full min-h-screen 
       px-6 py-10 relative overflow-hidden">
       
-      {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-purple-300 rounded-full 
         mix-blend-multiply filter blur-xl opacity-20 animate-pulse" />
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-pink-300 rounded-full 
@@ -38,8 +44,9 @@ const Home = () => {
                 whileTap={{ scale: 0.95 }}
                 className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 
                   text-white font-semibold rounded-xl shadow-lg hover:shadow-xl
-                  hover:from-purple-600 hover:to-pink-600 transition-all duration-300
+                  hover:from-purple-600 hover:to-pink-600 transition-all duration-300 cursor-pointer
                   border border-white/20"
+                  onClick={createActivity}
               >
                 {about.create}
               </motion.button>
@@ -57,6 +64,11 @@ const Home = () => {
           <ActivityCard />
         </motion.div>
       </div>
+      {
+        isDialogOpen? <ActivityPopup isOpen={isDialogOpen} onClose={() => setDialogOpen(false)} />
+        : <></>
+      }
+
     </div>
   );
 };

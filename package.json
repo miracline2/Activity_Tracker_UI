@@ -12,8 +12,10 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
     "framer-motion": "^12.18.1",
+    "lucide-react": "^0.515.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.57.0",
     "react-hot-toast": "^2.5.2",
     "tailwindcss": "^4.1.10"
   },
