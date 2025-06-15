@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
 import { activities } from "../../common";
 import ActivityData from "./ActivityData";
+import { useNavigate } from "react-router-dom";
 
 const ActivityCard = () => {
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:grid-cols-4 p-6">
       {activities.map((activity, index) => (
         <motion.div
           key={index}
+          onClick={() => navigate(`/activity/${activity.title.toLowerCase()}`)}
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           whileHover={{ 
