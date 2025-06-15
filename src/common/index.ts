@@ -1,10 +1,9 @@
 export const activities = [
-  { title: "Diet", icon: "🥗" },
+  // { title: "Diet", icon: "🥗" },
   { title: "Gaming", icon: "🎮" },
-  { title: "Workout", icon: "🏋️" },
-  { title: "Learning", icon: "📘" },
-  { title: "Reading", icon: "📚" },
-  { title: "Music", icon: "🎵" },
+  { title: "Work", icon: "💼" },
+  // { title: "Learning", icon: "📘" },
+  // { title: "Music", icon: "🎵" },
 ];
 
 export const HomeAbout = [
@@ -14,3 +13,5 @@ export const HomeAbout = [
     create: 'Create New +'
   }
 ];
+
+export type GameType = 'Mobile' | 'Outdoor' | 'Indoor';
