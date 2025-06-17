@@ -1,6 +1,6 @@
 import Home from "./pages/Home"
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import ActivityPage from "./components/Activities/ActivityPage";
 
 

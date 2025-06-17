@@ -108,6 +108,7 @@ const GamingChart = ({ logs }: { logs: GameLog[] }) => {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
+    if (isNaN(date.getTime())) return "Invalid Date";
 
     if (date.toDateString() === today.toDateString()) {
       return 'Today';
