@@ -17,19 +17,18 @@ const GameLogs = ({ logs }: { logs: GameLog[] }) => {
 
   // Helper function to format date
   const formatDate = (dateString: string) => {
-    const isoString = new Date(dateString).toISOString();
-    const date = new Date(isoString);
-    
-    if (isNaN(date.getTime())) return "Invalid Date";
-  
-    return date.toLocaleDateString('en-US', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
   };
-  
 
   if (logs.length === 0) {
     return (
