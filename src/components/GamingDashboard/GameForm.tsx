@@ -18,6 +18,10 @@ const GameForm = ({ onSubmit, defaultGames }: GameFormProps) => {
     endTime: new Date(),
     duration: '',
   });
+  
+  // Add separate state to track if custom option is selected
+  const [isCustomGame, setIsCustomGame] = useState(false);
+  const [customGameName, setCustomGameName] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,22 +31,40 @@ const GameForm = ({ onSubmit, defaultGames }: GameFormProps) => {
 
     const durationText = `${formatTime(formData.startTime ?? undefined)} – ${formatTime(formData.endTime ?? undefined)} (${hours} hrs)`;
 
+    // Use custom game name if custom is selected, otherwise use selected game
+    const gameToSubmit = isCustomGame ? customGameName : formData.game;
+
     onSubmit({
       ...formData,
+      game: gameToSubmit,
       duration: durationText,
     });
 
+    // Reset form
     setFormData({
       ...formData,
       game: '',
       startTime: new Date(),
       endTime: new Date(),
     });
+    setIsCustomGame(false);
+    setCustomGameName('');
   };
 
   const formatTime = (date: Date | undefined) => {
     if (!date) return '';
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  const handleGameSelection = (value: string) => {
+    if (value === 'custom') {
+      setIsCustomGame(true);
+      setFormData({ ...formData, game: '' }); // Clear the game field when custom is selected
+    } else {
+      setIsCustomGame(false);
+      setCustomGameName('');
+      setFormData({ ...formData, game: value });
+    }
   };
 
   return (
@@ -61,12 +83,17 @@ const GameForm = ({ onSubmit, defaultGames }: GameFormProps) => {
                 className={`
                   flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 ease-in-out cursor-pointer
                   ${formData.category === type 
-                    ? '              bg-gradient-to-r from-purple-500 to-pink-500   text-white shadow-lg transform scale-105' 
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg transform scale-105' 
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
                   }
                   focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2
                 `}
-                onClick={() => setFormData({ ...formData, category: type })}
+                onClick={() => {
+                  setFormData({ ...formData, category: type });
+                  // Reset game selection when category changes
+                  setIsCustomGame(false);
+                  setCustomGameName('');
+                }}
               >
                 {type}
               </button>
@@ -86,8 +113,8 @@ const GameForm = ({ onSubmit, defaultGames }: GameFormProps) => {
               bg-white text-gray-900 appearance-none cursor-pointer
               transition-all duration-200
             "
-            value={formData.game}
-            onChange={(e) => setFormData({ ...formData, game: e.target.value })}
+            value={isCustomGame ? 'custom' : formData.game}
+            onChange={(e) => handleGameSelection(e.target.value)}
             required
           >
             <option value="">Choose a game...</option>
@@ -99,7 +126,7 @@ const GameForm = ({ onSubmit, defaultGames }: GameFormProps) => {
         </div>
 
         {/* Custom Game Input */}
-        {formData.game === 'custom' && (
+        {isCustomGame && (
           <div className="space-y-2 animate-in slide-in-from-top duration-300">
             <label className="block text-sm font-semibold text-gray-700">
               Custom Game Name
@@ -107,14 +134,16 @@ const GameForm = ({ onSubmit, defaultGames }: GameFormProps) => {
             <input
               type="text"
               placeholder="Enter your game name..."
+              value={customGameName}
               className="
                 w-full p-3 border border-gray-300 rounded-lg
                 focus:ring-2 focus:ring-purple-500 focus:border-purple-500
                 transition-all duration-200
                 placeholder:text-gray-400
               "
-              onChange={(e) => setFormData({ ...formData, game: e.target.value })}
+              onChange={(e) => setCustomGameName(e.target.value)}
               autoFocus
+              required
             />
           </div>
         )}
@@ -205,7 +234,6 @@ const GameForm = ({ onSubmit, defaultGames }: GameFormProps) => {
           "
         >
           <span className="flex items-center justify-center gap-1 text-sm">
-           
             Add Game Log
           </span>
         </button>
